@@ -789,8 +789,8 @@ def start_mitm():
 if __name__ == '__main__':
     with open("settings.json", "r") as f:
         settings = json.load(f)
+        rpc_host = settings.get("Host", {}).get("XMLRPC", "127.0.0.1")
         rpc_port = settings["Port"]["XMLRPC"]
-    rpc_host = "127.0.0.1"
     s = ServerProxy(f"http://{rpc_host}:{rpc_port}", allow_none=True)
     app = Akagi(rpc_server=s)
     atexit.register(exit_handler)
